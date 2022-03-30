@@ -4,14 +4,10 @@ const Product = require("../models/product");
 
 
 router.post("/post", async(req,res) =>{
+    const productdata = new Product(req.body);
    try{
-   const { title, price,  image, category, rating, count  } = req.body ;
-   
-   const Productdata = new Product({
-    title, price, image, category, rating, count
-   })
-   const newdata = Productdata.save()
-   res.json(newdata)
+     const data = await productdata.save();
+     res.json(data);
 }catch(error){
     console.error(err);
     res.status(500).send();
@@ -31,7 +27,8 @@ router.get("/get", async(req, res) => {
 
 router.get("/get/:id", async(req, res) => {
     try{
-        const deee = new Product.findById(req.params.id)
+        const { id } = req.params;
+        const deee = new Product.findById({ _id: id })
       res.json(deee);
     }catch(err) {
         console.error(err);
