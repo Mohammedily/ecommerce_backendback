@@ -17,7 +17,7 @@ router.post("/post", async(req,res) =>{
 
 router.get("/get", async(req, res) => {
     try{
-      const product = new Product.find();
+      const product = await Product.find();
       res.json(product);
     }catch(err) {
         console.error(err);
@@ -28,7 +28,7 @@ router.get("/get", async(req, res) => {
 router.get("/get/:id", async(req, res) => {
     try{
         const { id } = req.params;
-        const deee = new Product.findById({ _id: id })
+        const deee = await Product.findById({ _id: id })
       res.json(deee);
     }catch(err) {
         console.error(err);
